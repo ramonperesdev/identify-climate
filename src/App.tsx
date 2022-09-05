@@ -1,27 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 
-interface IStateCoords {
-  latitude: number | undefined;
-  longitude: number | undefined;
-}
+// TYPES
+import { ICoords } from "./interfaces/weather";
 
-function getLocationWeather() {
-  function apiCall({ latitude, longitude }: IStateCoords) {
-    return axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=1251c9461659318c33e6828a82bdca9c&units=metric`
-      )
-      .then((response) => {
-        console.log("response", response);
-      });
-  }
-
-  return { apiCall };
-}
+//SERVICES
+import { getLocationWeather } from "./services/endpoints/weather";
 
 function App() {
-  const [coords, setCoords] = useState<IStateCoords | undefined>(undefined);
+  const [coords, setCoords] = useState<ICoords | undefined>(undefined);
   const [error, setError] = useState(false);
 
   const handleSetLocation = useCallback(
