@@ -16,11 +16,28 @@ import {
   Dregrees,
   NameWeather,
   Weathers,
+  Title,
+  WeatherForecast,
+  Weath,
+  WeatherName,
+  DayOfWeek,
+  BoxButtons,
+  ButtonCurrentLocation,
+  ButtonRefresh,
 } from "./styles";
 
 export function Home() {
   const [coords, setCoords] = useState<ICoords | undefined>(undefined);
   const [error, setError] = useState(false);
+
+  const weathers = [
+    { id: 1, weather: "Moderate Rain", day: "SUN" },
+    { id: 2, weather: "Light Rain", day: "MON" },
+    { id: 3, weather: "Moderate Rain", day: "TUE" },
+    { id: 4, weather: "Thunderstorms", day: "WED" },
+    { id: 5, weather: "Scattered Clouds", day: "THU" },
+    { id: 6, weather: "Clear Sky", day: "FRI" },
+  ];
 
   const handleSetLocation = useCallback(
     (latitude: number, longitude: number) => {
@@ -84,10 +101,26 @@ export function Home() {
             </Weather>
           </BoxWeather>
         </InfoWeather>
-        <Weathers>test</Weathers>
-        {/* <button type="button" onClick={handleSetWeather}>
-          test
-        </button> */}
+        <Weathers>
+          <Title>Daily forecast</Title>
+          <WeatherForecast>
+            {weathers.map((item) => (
+              <Weath>
+                <ClearSky />
+                <WeatherName>{item.weather}</WeatherName>
+                <DayOfWeek>{item.day}</DayOfWeek>
+              </Weath>
+            ))}
+          </WeatherForecast>
+          <BoxButtons>
+            <ButtonCurrentLocation type="button" onClick={handleSetWeather}>
+              Current Location
+            </ButtonCurrentLocation>
+            <ButtonRefresh type="button" onClick={handleSetWeather}>
+              Refresh
+            </ButtonRefresh>
+          </BoxButtons>
+        </Weathers>
       </BoxCenter>
     </Container>
   );
