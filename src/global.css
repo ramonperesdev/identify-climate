@@ -1,0 +1,40 @@
+:root {
+  --white-100: #fff;
+  --white-200: #f3f4f6;
+
+  --purple-500: #6e69cd;
+  --purple-300: #9897db;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background: var(--purple-500);
+  color: var(--white-200);
+  -webkit-font-smoothing: antialiased;
+}
+
+body,
+input,
+textarea,
+button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
