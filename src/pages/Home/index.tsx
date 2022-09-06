@@ -1,33 +1,32 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ICoords } from "../../interfaces/weather";
+import { ICoords, IWeather } from "../../interfaces/weather";
 import { getLocationWeather } from "../../services/endpoints/weather";
 
-import { ReactComponent as ClearSky } from "../../assets/clear-day.svg";
+import { ReactComponent as ClearSkyWhite } from "../../assets/clearDayWhite.svg";
+import { ReactComponent as ClearSky } from "../../assets/clearDay.svg";
+import { ReactComponent as IconRefresh } from "../../assets/iconRefresh.svg";
+import { ReactComponent as IconLocation } from "../../assets/iconLocation.svg";
 
 import {
   Container,
   BoxCenter,
-  InfoWeather,
-  LocalDate,
-  Local,
-  Date,
-  BoxWeather,
-  Weather,
-  Dregrees,
-  NameWeather,
-  Weathers,
+  BoxWeathers,
   Title,
-  WeatherForecast,
-  Weath,
-  WeatherName,
-  DayOfWeek,
+  Weathers,
   BoxButtons,
   ButtonCurrentLocation,
   ButtonRefresh,
+  Skeleton,
 } from "./styles";
+import { InfoWeather } from "../../components/InfoWeather";
+import { WeekForecast } from "../../components/WeekForecast";
 
 export function Home() {
   const [coords, setCoords] = useState<ICoords | undefined>(undefined);
+  const [dataWeather, setDataWeather] = useState<IWeather | undefined>(
+    undefined
+  );
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const weathers = [
@@ -39,88 +38,98 @@ export function Home() {
     { id: 6, weather: "Clear Sky", day: "FRI" },
   ];
 
-  const handleSetLocation = useCallback(
-    (latitude: number, longitude: number) => {
-      if (!latitude || !longitude) {
-        return;
-      }
-
-      setCoords({ latitude: latitude, longitude: longitude });
-      console.log("passou");
-    },
-    []
-  );
-
   const handleSetWeather = useCallback(async () => {
+    console.log("entrou");
     const { apiCall } = getLocationWeather();
 
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      hour: "numeric",
+      minute: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    // format date: Tuesday, September 6 at 6:28 PM
+    const today = new Date().toLocaleDateString("en-US", options);
+
     try {
-      const response = await apiCall({
-        latitude: coords?.latitude,
-        longitude: coords?.longitude,
+      setLoading(true);
+
+      const { data } = await apiCall({
+        latitude: coords?.latitude || -22.8742,
+        longitude: coords?.longitude || -43.4685,
       });
 
-      console.log("response", response);
+      setDataWeather({
+        temp: Math.round(data.main.temp),
+        location: data.name,
+        description: data.weather[0].description,
+        main: data.weather[0].main,
+        icon: data.weather[0].icon,
+        date: today,
+      });
+
+      console.log("data", data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   }, [coords]);
 
   useEffect(() => {
-    if (window.navigator.geolocation) {
-      window.navigator.geolocation.getCurrentPosition(
-        ({ coords: { latitude, longitude } }) => {
-          setCoords({ latitude: latitude, longitude: longitude });
-        },
-        () => setError(true)
-      );
-    }
+    // if (window.navigator.geolocation) {
+    //   window.navigator.geolocation.getCurrentPosition(
+    //     ({ coords: { latitude, longitude } }) => {
+    //       setCoords({ latitude: latitude, longitude: longitude });
+    //     },
+    //     () => setError(true)
+    //   );
+    // }
+
+    handleSetWeather();
   }, []);
 
   useEffect(() => {
-    console.log("error", error);
-  }, [error]);
-  useEffect(() => {
-    console.log("coords", coords);
-  }, [coords]);
+    console.log("dataWeather", dataWeather);
+  }, [dataWeather]);
 
   return (
     <Container>
       <BoxCenter>
-        <InfoWeather>
-          <LocalDate>
-            <Local>Goiânia</Local>
-            <Date>Monday, September 05 at 15:00PM</Date>
-          </LocalDate>
+        {loading && (
+          <>
+            <Skeleton height={60} />
+            <Skeleton height={40} />
+          </>
+        )}
 
-          <BoxWeather>
-            <ClearSky />
-            <Weather>
-              <Dregrees>29°</Dregrees>
-              <NameWeather>Clear Sky</NameWeather>
-            </Weather>
-          </BoxWeather>
-        </InfoWeather>
-        <Weathers>
-          <Title>Daily forecast</Title>
-          <WeatherForecast>
-            {weathers.map((item) => (
-              <Weath>
-                <ClearSky />
-                <WeatherName>{item.weather}</WeatherName>
-                <DayOfWeek>{item.day}</DayOfWeek>
-              </Weath>
-            ))}
-          </WeatherForecast>
-          <BoxButtons>
-            <ButtonCurrentLocation type="button" onClick={handleSetWeather}>
-              Current Location
-            </ButtonCurrentLocation>
-            <ButtonRefresh type="button" onClick={handleSetWeather}>
-              Refresh
-            </ButtonRefresh>
-          </BoxButtons>
-        </Weathers>
+        {!loading && (
+          <>
+            <InfoWeather dataWeather={dataWeather} />
+
+            <BoxWeathers>
+              <Title>Hours forecast</Title>
+              <Weathers>
+                {weathers.map((item) => (
+                  <WeekForecast weath={item} />
+                ))}
+              </Weathers>
+
+              <BoxButtons>
+                <ButtonCurrentLocation type="button" onClick={handleSetWeather}>
+                  <IconLocation />
+                  Current Location
+                </ButtonCurrentLocation>
+                <ButtonRefresh type="button" onClick={handleSetWeather}>
+                  <IconRefresh />
+                  Refresh
+                </ButtonRefresh>
+              </BoxButtons>
+            </BoxWeathers>
+          </>
+        )}
       </BoxCenter>
     </Container>
   );

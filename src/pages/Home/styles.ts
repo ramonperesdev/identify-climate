@@ -1,5 +1,10 @@
-import styled from "styled-components";
-import image from "../../assets/imagesWeathers/clearSkySun.webp";
+import styled, { keyframes } from "styled-components";
+
+const skeleton = keyframes`
+  to{
+      background-position-x: -200%;
+  }
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -18,56 +23,9 @@ export const BoxCenter = styled.div`
   padding: 3rem;
 `;
 
-export const InfoWeather = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+export const BoxWeathers = styled.div`
   width: 100%;
-  height: 50%;
-  padding: 4rem 6rem;
-  border-radius: 40px;
-  background-image: url(${image});
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-`;
-export const LocalDate = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-`;
-export const Local = styled.span`
-  font-size: 2rem;
-`;
-export const Date = styled.span`
-  font-size: 1.2rem;
-`;
-
-export const BoxWeather = styled.div`
-  display: flex;
-  align-items: center;
-
-  svg {
-    width: 100px;
-    height: 100px;
-  }
-`;
-export const Weather = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-`;
-export const Dregrees = styled.span`
-  font-size: 3rem;
-  font-weight: bold;
-`;
-export const NameWeather = styled.span`
-  font-size: 1.2rem;
-`;
-
-export const Weathers = styled.div`
-  width: 100%;
-  height: 50%;
+  height: 40%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -78,7 +36,7 @@ export const Title = styled.span`
   font-weight: bold;
   color: var(--gray-300);
 `;
-export const WeatherForecast = styled.div`
+export const Weathers = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 1rem;
@@ -92,6 +50,7 @@ export const Weath = styled.div`
   background: var(--white-200);
   color: var(--gray-300);
   border-radius: 10px;
+  gap: 0.3rem;
 
   svg {
     fill: var(--gray-300);
@@ -99,7 +58,10 @@ export const Weath = styled.div`
     height: 80px;
   }
 `;
-export const DayOfWeek = styled.span``;
+export const DayOfWeek = styled.span`
+  font-size: 0.87rem;
+  font-weight: bold;
+`;
 export const WeatherName = styled.span``;
 
 export const BoxButtons = styled.div`
@@ -108,18 +70,51 @@ export const BoxButtons = styled.div`
   gap: 10px;
 `;
 export const ButtonCurrentLocation = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   width: 200px;
-  height: 40px;
+  height: 45px;
   background: var(--gray-300);
-  border: none;
   color: var(--white-100);
   font-weight: bold;
+  border-radius: 5px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--white-100);
+  }
 `;
 export const ButtonRefresh = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   width: 200px;
-  height: 40px;
-  background: none;
-  border: 1px solid var(--gray-300);
+  height: 45px;
+  background: var(--white-100);
   color: var(--gray-300);
   font-weight: bold;
+  border-radius: 5px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--gray-300);
+  }
+`;
+
+interface ISkeletonProps {
+  height?: number;
+}
+
+export const Skeleton = styled.div<ISkeletonProps>`
+  background: var(--white-100);
+  background: linear-gradient(110deg, #cfcfcf 8%, #f7f6f6 18%, #cfcfcf 33%);
+  animation: 1.5s ${skeleton} linear infinite;
+  height: ${(props) => props.height && `${props.height}%`};
+  border-radius: 40px;
+  background-size: 200% 100%;
 `;
