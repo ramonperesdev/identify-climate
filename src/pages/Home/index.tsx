@@ -60,8 +60,8 @@ export function Home() {
       setLoading(true);
 
       const { data } = await apiCall({
-        latitude: coords?.latitude || -22.8742,
-        longitude: coords?.longitude || -43.4685,
+        latitude: coords?.latitude || -16.6926655,
+        longitude: coords?.longitude || -49.2942931,
       });
 
       setDataWeather({
@@ -86,9 +86,20 @@ export function Home() {
 
     try {
       const { data } = await apiCall({
-        latitude: coords?.latitude || -22.8742,
-        longitude: coords?.longitude || -43.4685,
+        latitude: coords?.latitude || -16.6926655,
+        longitude: coords?.longitude || -49.2942931,
       });
+
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: "short",
+        hour: "numeric",
+        minute: "numeric",
+      };
+
+      // format date: Tuesday, September 6 at 6:28 PM
+      const today = new Date(data.dt_txt).toLocaleDateString("en-US", options);
+
+      console.log("today", today);
 
       setHoursForecast(
         data.list.map((i: any) => ({

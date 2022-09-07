@@ -16,19 +16,20 @@ export const BoxCenter = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  padding: 3rem;
   width: 100%;
   height: 100%;
+
   border-radius: 40px;
   background: var(--purple-300);
-  padding: 3rem;
 `;
 
 export const BoxWeathers = styled.div`
-  width: 100%;
-  height: 40%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  height: 40%;
 `;
 
 export const Title = styled.span`
@@ -38,7 +39,7 @@ export const Title = styled.span`
 `;
 export const Weathers = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
 `;
 export const Weath = styled.div`
@@ -47,6 +48,7 @@ export const Weath = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
+
   background: var(--white-200);
   color: var(--gray-300);
   border-radius: 10px;
@@ -76,6 +78,7 @@ export const ButtonCurrentLocation = styled.button`
   gap: 5px;
   width: 200px;
   height: 45px;
+
   background: var(--gray-300);
   color: var(--white-100);
   font-weight: bold;
@@ -94,6 +97,7 @@ export const ButtonRefresh = styled.button`
   gap: 5px;
   width: 200px;
   height: 45px;
+
   background: var(--white-100);
   color: var(--gray-300);
   font-weight: bold;
@@ -111,10 +115,10 @@ interface ISkeletonProps {
 }
 
 export const Skeleton = styled.div<ISkeletonProps>`
-  background: var(--white-100);
-  background: linear-gradient(110deg, #cfcfcf 8%, #f7f6f6 18%, #cfcfcf 33%);
-  animation: 1.5s ${skeleton} linear infinite;
   height: ${(props) => props.height && `${props.height}%`};
   border-radius: 40px;
+  background: var(--white-100);
+  background: linear-gradient(110deg, #cfcfcf 8%, #f7f6f6 18%, #cfcfcf 33%);
   background-size: 200% 100%;
+  animation: 1.5s ${skeleton} linear infinite;
 `;

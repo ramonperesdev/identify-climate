@@ -5,9 +5,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  padding: 4rem 6rem;
   width: 100%;
   height: 60%;
-  padding: 4rem 6rem;
+
   border-radius: 40px;
   background-image: url(${image});
   background-size: cover;
