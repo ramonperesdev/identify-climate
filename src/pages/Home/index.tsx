@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ICoords, IWeather } from "../../interfaces/weather";
-import { getLocationWeather } from "../../services/endpoints/weather";
+import {
+  getLocationWeather,
+  getWeatherForecast,
+} from "../../services/endpoints/weather";
 
 import { ReactComponent as ClearSkyWhite } from "../../assets/clearDayWhite.svg";
 import { ReactComponent as ClearSky } from "../../assets/clearDay.svg";
@@ -27,6 +30,7 @@ export function Home() {
     undefined
   );
   const [loading, setLoading] = useState(true);
+  const [hoursForecast, setHoursForecast] = useState([]);
   const [error, setError] = useState(false);
 
   const weathers = [
@@ -39,7 +43,6 @@ export function Home() {
   ];
 
   const handleSetWeather = useCallback(async () => {
-    console.log("entrou");
     const { apiCall } = getLocationWeather();
 
     const options: Intl.DateTimeFormatOptions = {
@@ -70,13 +73,37 @@ export function Home() {
         date: today,
       });
 
-      console.log("data", data);
+      console.log("response weather", data);
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   }, [coords]);
+
+  const handleSetHoursForecast = useCallback(async () => {
+    const { apiCall } = getWeatherForecast();
+
+    try {
+      const { data } = await apiCall({
+        latitude: coords?.latitude || -22.8742,
+        longitude: coords?.longitude || -43.4685,
+      });
+
+      setHoursForecast(
+        data.list.map((i: any) => ({
+          temp: i.main.temp,
+          date: new Date(i.dt_txt),
+          description: i.weather[0].description,
+          icon: i.weather[0].icon,
+        }))
+      );
+
+      console.log("response forecast", data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     // if (window.navigator.geolocation) {
@@ -89,11 +116,12 @@ export function Home() {
     // }
 
     handleSetWeather();
+    handleSetHoursForecast();
   }, []);
 
   useEffect(() => {
-    console.log("dataWeather", dataWeather);
-  }, [dataWeather]);
+    console.log("hoursForecast", hoursForecast);
+  }, [hoursForecast]);
 
   return (
     <Container>
@@ -112,7 +140,7 @@ export function Home() {
             <BoxWeathers>
               <Title>Hours forecast</Title>
               <Weathers>
-                {weathers.map((item) => (
+                {hoursForecast.map((item) => (
                   <WeekForecast weath={item} />
                 ))}
               </Weathers>

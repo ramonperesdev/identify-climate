@@ -5,15 +5,15 @@ import { ReactComponent as ClearSky } from "../../assets/clearDay.svg";
 import { Weath, WeatherName, DayOfWeek } from "./styles";
 
 interface IWeather {
-  weath: { id: number; weather: string; day: string };
+  weath: { description: string; date: string; icon: string; temp: number };
 }
 
 export function WeekForecast({ weath }: IWeather) {
   return (
     <Weath>
       <ClearSky />
-      <WeatherName>{weath.weather}</WeatherName>
-      <DayOfWeek>{weath.day}</DayOfWeek>
+      <WeatherName>{weath.description.toUpperCase()}</WeatherName>
+      <DayOfWeek>TESTE</DayOfWeek>
     </Weath>
   );
 }
