@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 
-import { ReactComponent as ClearSky } from "../../assets/clearDay.svg";
+import { ReactComponent as ClearSky } from "../../assets/iconsWeathers/01d.svg";
+import { IconWeather } from "../IconWeather/IconWeather";
 
 import { Weath, WeatherName, DayOfWeek } from "./styles";
 
@@ -33,7 +34,7 @@ export function WeekForecast({ weath }: IWeather) {
 
   return (
     <Weath>
-      <ClearSky />
+      <IconWeather type={weath.icon} />
       <WeatherName>{weath.description.toUpperCase()}</WeatherName>
       <DayOfWeek>{`${daysOfWeek[weath.date.getDay()]}, ${String(
         weath.date.getHours()

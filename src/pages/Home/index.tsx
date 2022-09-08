@@ -5,8 +5,6 @@ import {
   getWeatherForecast,
 } from "../../services/endpoints/weather";
 
-import { ReactComponent as ClearSkyWhite } from "../../assets/clearDayWhite.svg";
-import { ReactComponent as ClearSky } from "../../assets/clearDay.svg";
 import { ReactComponent as IconRefresh } from "../../assets/iconRefresh.svg";
 import { ReactComponent as IconLocation } from "../../assets/iconLocation.svg";
 

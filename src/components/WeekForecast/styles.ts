@@ -8,14 +8,17 @@ export const Weath = styled.div`
   gap: 0.3rem;
   padding: 1rem;
 
-  background: var(--white-200);
+  background: var(--gray-100);
   color: var(--gray-300);
   border-radius: 10px;
 
   svg {
     width: 80px;
     height: 80px;
-    fill: var(--gray-300);
+
+    circle {
+      fill: orange;
+    }
   }
 `;
 export const DayOfWeek = styled.span`
