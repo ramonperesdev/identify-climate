@@ -1,12 +1,17 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
-import { ReactComponent as ClearSky } from "../../assets/iconsWeathers/01d.svg";
+import { IWeatherTypes } from "../../interfaces/weather";
 import { IconWeather } from "../IconWeather/IconWeather";
 
 import { Weath, WeatherName, DayOfWeek } from "./styles";
 
 interface IWeather {
-  weath: { description: string; date: Date; icon: string; temp: number };
+  weath: {
+    description: string;
+    date: Date;
+    icon: keyof IWeatherTypes;
+    temp: number;
+  };
 }
 
 export function WeekForecast({ weath }: IWeather) {

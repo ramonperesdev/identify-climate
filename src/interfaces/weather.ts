@@ -11,3 +11,24 @@ export interface IWeather {
   icon: string;
   date: string;
 }
+
+export interface IWeatherTypes {
+  "01d": string;
+  "01n": string;
+  "02d": string;
+  "02n": string;
+  "03d": string;
+  "03n": string;
+  "04d": string;
+  "04n": string;
+  "09d": string;
+  "09n": string;
+  "10d": string;
+  "10n": string;
+  "11d": string;
+  "11n": string;
+  "13d": string;
+  "13n": string;
+  "50d": string;
+  "50n": string;
+}

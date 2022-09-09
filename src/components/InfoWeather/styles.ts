@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import image from "../../assets/imagesWeathers/clearSkySun.webp";
+import image from "../../assets/imagesWeathers/clearSkyMoon.webp";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   border-radius: 40px;
   background-image: url(${image});
   background-size: cover;
-  background-position: 50% 50%;
+  background-position: 50% 20%;
   background-repeat: no-repeat;
 `;
 export const LocalDate = styled.div`

@@ -1,4 +1,4 @@
-import React from "react";
+import { SVGProps } from "react";
 
 import { ReactComponent as ClearSkyDay } from "../../assets/iconsWeathers/01d.svg";
 import { ReactComponent as ClearSkyNight } from "../../assets/iconsWeathers/01n.svg";
@@ -13,18 +13,14 @@ import { ReactComponent as Thunderstorm } from "../../assets/iconsWeathers/11d.s
 import { ReactComponent as SnowDay } from "../../assets/iconsWeathers/13d.svg";
 import { ReactComponent as SnowNight } from "../../assets/iconsWeathers/13n.svg";
 import { ReactComponent as Mist } from "../../assets/iconsWeathers/50d.svg";
+import { IWeatherTypes } from "../../interfaces/weather";
 
-interface IWeatherTypes {
-  [key: string]: SVGSVGElement;
-}
 interface IIconProps {
-  type: any;
+  type?: keyof IWeatherTypes;
 }
 
 export function IconWeather({ type = "01d", ...rest }: IIconProps) {
-  console.log("type", type);
-
-  const typesIcons: any = {
+  const typesIcons = {
     "01d": ClearSkyDay,
     "01n": ClearSkyNight,
     "02d": FewCloudsDay,
@@ -45,7 +41,7 @@ export function IconWeather({ type = "01d", ...rest }: IIconProps) {
     "50n": Mist,
   };
 
-  const ReactIcon: any = typesIcons[type];
+  const ReactIcon = typesIcons[type];
 
-  return <ReactIcon {...rest} />;
+  return <ReactIcon height="80" width="80" {...rest} />;
 }
