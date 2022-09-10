@@ -33,8 +33,13 @@ export const Title = styled.span`
 `;
 export const Weathers = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  overflow-y: auto;
+
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
 `;
 export const Weath = styled.div`
   display: flex;
