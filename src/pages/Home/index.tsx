@@ -1,13 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { ICoords, IWeather } from "../../interfaces/weather";
+import { useCallback, useEffect, useState } from "react";
+
+// SERVICES
 import {
   getLocationWeather,
   getWeatherForecast,
 } from "../../services/endpoints/weather";
 
+// TYPES
+import { ICoords, IWeather } from "../../interfaces/weather";
+
+// COMPONENTS
+import { InfoWeather } from "../../components/InfoWeather";
+import { WeekForecast } from "../../components/WeekForecast";
+import { Skeleton } from "../../components/Skeleton";
+import { Tooltip } from "../../components/Tooltip";
+
+// ASSETS
 import { ReactComponent as IconRefresh } from "../../assets/iconRefresh.svg";
 import { ReactComponent as IconLocation } from "../../assets/iconLocation.svg";
 
+// STYLES
 import {
   Container,
   BoxCenter,
@@ -17,10 +29,7 @@ import {
   BoxButtons,
   ButtonCurrentLocation,
   ButtonRefresh,
-  Skeleton,
 } from "./styles";
-import { InfoWeather } from "../../components/InfoWeather";
-import { WeekForecast } from "../../components/WeekForecast";
 
 export function Home() {
   const [coords, setCoords] = useState<ICoords | undefined>(undefined);
@@ -31,53 +40,66 @@ export function Home() {
   const [hoursForecast, setHoursForecast] = useState([]);
   const [error, setError] = useState(false);
 
-  const weathers = [
-    { id: 1, weather: "Moderate Rain", day: "SUN" },
-    { id: 2, weather: "Light Rain", day: "MON" },
-    { id: 3, weather: "Moderate Rain", day: "TUE" },
-    { id: 4, weather: "Thunderstorms", day: "WED" },
-    { id: 5, weather: "Scattered Clouds", day: "THU" },
-    { id: 6, weather: "Clear Sky", day: "FRI" },
-  ];
+  const messagesTooltip = {
+    accepted:
+      "Your location has already been authorized and the weather in your region is processed.",
+    refused:
+      "Without your location we cannot provide you with the climate of your region.",
+    unsolicited:
+      "Please provide your location for us to provide you with the weather and forecast for your region.",
+  };
 
-  const handleSetWeather = useCallback(async () => {
-    const { apiCall } = getLocationWeather();
-
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      hour: "numeric",
-      minute: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-
-    // format date: Tuesday, September 6 at 6:28 PM
-    const today = new Date().toLocaleDateString("en-US", options);
-
-    try {
-      setLoading(true);
-
-      const { data } = await apiCall({
-        latitude: coords?.latitude || -16.6926655,
-        longitude: coords?.longitude || -49.2942931,
-      });
-
-      setDataWeather({
-        temp: Math.round(data.main.temp),
-        location: data.name,
-        description: data.weather[0].description,
-        main: data.weather[0].main,
-        icon: data.weather[0].icon,
-        date: today,
-      });
-
-      console.log("response weather", data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
+  const handleTextTooltip = useCallback(() => {
+    if (coords) {
+      return messagesTooltip["accepted"];
+    } else if (!error) {
+      return messagesTooltip["unsolicited"];
+    } else {
+      return messagesTooltip["refused"];
     }
-  }, [coords]);
+  }, [coords, error]);
+
+  const handleSetWeather = useCallback(
+    async (latitude?: number, longitude?: number) => {
+      const { apiCall } = getLocationWeather();
+
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        hour: "numeric",
+        minute: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+
+      // format date: Tuesday, September 6 at 6:28 PM
+      const today = new Date().toLocaleDateString("en-US", options);
+
+      try {
+        setLoading(true);
+
+        const { data } = await apiCall({
+          latitude: latitude || -22.9068,
+          longitude: longitude || -43.1729,
+        });
+
+        setDataWeather({
+          temp: Math.round(data.main.temp),
+          location: data.name,
+          description: data.weather[0].description,
+          main: data.weather[0].main,
+          icon: data.weather[0].icon,
+          date: today,
+        });
+
+        console.log("response weather", data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    },
+    [coords]
+  );
 
   const handleSetHoursForecast = useCallback(async () => {
     const { apiCall } = getWeatherForecast();
@@ -114,31 +136,29 @@ export function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    // if (window.navigator.geolocation) {
-    //   window.navigator.geolocation.getCurrentPosition(
-    //     ({ coords: { latitude, longitude } }) => {
-    //       setCoords({ latitude: latitude, longitude: longitude });
-    //     },
-    //     () => setError(true)
-    //   );
-    // }
-
-    handleSetWeather();
-    handleSetHoursForecast();
+  const handleGetLocation = useCallback(() => {
+    if (window.navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          handleSetWeather(latitude, longitude);
+          setCoords({ latitude, longitude });
+        },
+        () => setError(true)
+      );
+    }
   }, []);
 
   useEffect(() => {
-    console.log("hoursForecast", hoursForecast);
-  }, [hoursForecast]);
+    handleSetWeather();
+    handleSetHoursForecast();
+  }, []);
 
   return (
     <Container>
       <BoxCenter>
         {loading && (
           <>
-            <Skeleton height={60} />
-            <Skeleton height={40} />
+            <Skeleton />
           </>
         )}
 
@@ -155,11 +175,21 @@ export function Home() {
               </Weathers>
 
               <BoxButtons>
-                <ButtonCurrentLocation type="button" onClick={handleSetWeather}>
-                  <IconLocation />
-                  Current Location
-                </ButtonCurrentLocation>
-                <ButtonRefresh type="button" onClick={handleSetWeather}>
+                <Tooltip textContent={handleTextTooltip()}>
+                  <ButtonCurrentLocation
+                    type="button"
+                    onClick={handleGetLocation}
+                  >
+                    <IconLocation />
+                    Current Location
+                  </ButtonCurrentLocation>
+                </Tooltip>
+                <ButtonRefresh
+                  type="button"
+                  onClick={() =>
+                    handleSetWeather(coords?.latitude, coords?.longitude)
+                  }
+                >
                   <IconRefresh />
                   Refresh
                 </ButtonRefresh>

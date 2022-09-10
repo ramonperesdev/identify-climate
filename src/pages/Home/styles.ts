@@ -1,11 +1,5 @@
 import styled, { keyframes } from "styled-components";
 
-const skeleton = keyframes`
-  to{
-      background-position-x: -200%;
-  }
-`;
-
 export const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -112,17 +106,4 @@ export const ButtonRefresh = styled.button`
     height: 20px;
     fill: var(--gray-500);
   }
-`;
-
-interface ISkeletonProps {
-  height?: number;
-}
-
-export const Skeleton = styled.div<ISkeletonProps>`
-  height: ${(props) => props.height && `${props.height}%`};
-  border-radius: 40px;
-  background: var(--white-100);
-  background: linear-gradient(110deg, #cfcfcf 8%, #f7f6f6 18%, #cfcfcf 33%);
-  background-size: 200% 100%;
-  animation: 1.5s ${skeleton} linear infinite;
 `;

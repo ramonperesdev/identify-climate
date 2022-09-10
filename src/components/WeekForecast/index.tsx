@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useMemo } from "react";
 
-import { IWeatherTypes } from "../../interfaces/weather";
-import { IconWeather } from "../IconWeather/IconWeather";
+// COMPONENTS
+import { IconWeather } from "../IconWeather";
 
+// STYLES
 import { Weath, WeatherName, DayOfWeek } from "./styles";
 
+// TYPES
+import { IWeatherTypes } from "../../interfaces/weather";
 interface IWeather {
   weath: {
     description: string;

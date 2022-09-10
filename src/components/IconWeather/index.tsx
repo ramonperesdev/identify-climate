@@ -1,5 +1,4 @@
-import { SVGProps } from "react";
-
+// ASSETS
 import { ReactComponent as ClearSkyDay } from "../../assets/iconsWeathers/01d.svg";
 import { ReactComponent as ClearSkyNight } from "../../assets/iconsWeathers/01n.svg";
 import { ReactComponent as FewCloudsDay } from "../../assets/iconsWeathers/02d.svg";
@@ -15,6 +14,7 @@ import { ReactComponent as SnowNight } from "../../assets/iconsWeathers/13n.svg"
 import { ReactComponent as Mist } from "../../assets/iconsWeathers/50d.svg";
 import { IWeatherTypes } from "../../interfaces/weather";
 
+// TYPES
 interface IIconProps {
   type?: keyof IWeatherTypes;
 }

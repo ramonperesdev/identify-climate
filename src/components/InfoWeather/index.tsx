@@ -1,8 +1,7 @@
-import React from "react";
-
+// ASSETS
 import { ReactComponent as ClearSkyWhite } from "../../assets/clearDayWhite.svg";
-import { IWeather } from "../../interfaces/weather";
 
+// STYLES
 import {
   Wrapper,
   LocalDate,
@@ -14,6 +13,8 @@ import {
   NameWeather,
 } from "./styles";
 
+// TYPES
+import { IWeather } from "../../interfaces/weather";
 interface IDataWeatherProps {
   dataWeather?: IWeather;
 }
