@@ -31,7 +31,11 @@ import {
   ButtonRefresh,
 } from "./styles";
 
-export function Home() {
+interface IHomeProps {
+  handleToogleTheme: () => void;
+}
+
+export function Home({ handleToogleTheme }: IHomeProps) {
   const [coords, setCoords] = useState<ICoords | undefined>(undefined);
   const [dataWeather, setDataWeather] = useState<IWeather | undefined>(
     undefined
@@ -164,7 +168,10 @@ export function Home() {
 
         {!loading && (
           <>
-            <InfoWeather dataWeather={dataWeather} />
+            <InfoWeather
+              dataWeather={dataWeather}
+              handleToogleTheme={handleToogleTheme}
+            />
 
             <BoxWeathers>
               <Title>Hours forecast</Title>

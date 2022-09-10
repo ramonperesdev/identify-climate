@@ -7,13 +7,15 @@ export const Weath = styled.div`
   justify-content: center;
   gap: 0.3rem;
   padding: 1rem;
-  -webkit-box-shadow: 0px 0px 22px 3px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 0px 22px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.5);
 
-  background: var(--gray-500);
-  color: var(--gray-300);
+  /* background: var(--gray-500);
+  color: var(--gray-300); */
+  background: ${({ theme }) => theme.backgroundCard};
+  color: ${({ theme }) => theme.text};
   border-radius: 10px;
-  border: 1px solid var(--gray-700);
+  border: 1px solid ${({ theme }) => theme.borderColor};
 
   svg {
     width: 80px;

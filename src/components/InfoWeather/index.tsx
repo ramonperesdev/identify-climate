@@ -11,15 +11,21 @@ import {
   Weather,
   Dregrees,
   NameWeather,
+  BoxSwitchToggle,
 } from "./styles";
 
 // TYPES
 import { IWeather } from "../../interfaces/weather";
+import { SwitchToggleTheme } from "../SwitchToggle";
 interface IDataWeatherProps {
   dataWeather?: IWeather;
+  handleToogleTheme: () => void;
 }
 
-export function InfoWeather({ dataWeather }: IDataWeatherProps) {
+export function InfoWeather({
+  dataWeather,
+  handleToogleTheme,
+}: IDataWeatherProps) {
   return (
     <Wrapper>
       <LocalDate>
@@ -34,6 +40,10 @@ export function InfoWeather({ dataWeather }: IDataWeatherProps) {
           <NameWeather>{dataWeather?.description.toUpperCase()}</NameWeather>
         </Weather>
       </BoxWeather>
+
+      <BoxSwitchToggle>
+        <SwitchToggleTheme handleToogleTheme={handleToogleTheme} />
+      </BoxSwitchToggle>
     </Wrapper>
   );
 }

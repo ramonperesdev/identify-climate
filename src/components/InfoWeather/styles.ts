@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   padding: 4rem 6rem;
   width: 100%;
   height: 60%;
+  position: relative;
 
   border-radius: 40px;
   background-image: url(${image});
@@ -22,9 +23,11 @@ export const LocalDate = styled.div`
 `;
 export const Local = styled.span`
   font-size: 2rem;
+  color: #fff;
 `;
 export const Date = styled.span`
   font-size: 1.2rem;
+  color: #fff;
 `;
 
 export const BoxWeather = styled.div`
@@ -44,7 +47,15 @@ export const Weather = styled.div`
 export const Dregrees = styled.span`
   font-size: 3rem;
   font-weight: bold;
+  color: #fff;
 `;
 export const NameWeather = styled.span`
   font-size: 1.2rem;
+  color: #fff;
+`;
+
+export const BoxSwitchToggle = styled.div`
+  position: absolute;
+  top: 4rem;
+  right: 6rem;
 `;

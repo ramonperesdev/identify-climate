@@ -15,7 +15,8 @@ export const BoxCenter = styled.div`
   height: 100%;
 
   border-radius: 40px;
-  background: var(--gray-300);
+  /* background: var(--gray-300); */
+  background: ${({ theme }) => theme.content};
 `;
 
 export const BoxWeathers = styled.div`
@@ -28,8 +29,8 @@ export const BoxWeathers = styled.div`
 
 export const Title = styled.span`
   font-size: 1.6rem;
-  font-weight: 300;
-  color: var(--white-200);
+  font-weight: 400;
+  color: ${({ theme }) => theme.text};
 `;
 export const Weathers = styled.div`
   display: grid;
@@ -80,15 +81,15 @@ export const ButtonCurrentLocation = styled.button`
 
   -webkit-box-shadow: 0px 0px 22px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 22px 3px rgba(0, 0, 0, 0.3);
-  background: var(--gray-200);
-  color: var(--white-100);
+  color: #fff;
+  background: ${({ theme }) => theme.buttonColor};
   font-weight: bold;
   border-radius: 5px;
 
   svg {
     width: 20px;
     height: 20px;
-    fill: var(--white-100);
+    fill: #fff;
   }
 `;
 export const ButtonRefresh = styled.button`
@@ -101,8 +102,8 @@ export const ButtonRefresh = styled.button`
 
   -webkit-box-shadow: 0px 0px 22px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 22px 3px rgba(0, 0, 0, 0.3);
-  background: var(--gray-100);
-  color: var(--gray-500);
+  background: ${({ theme }) => theme.buttonRefreshColor};
+  color: #3c3c3c;
   font-weight: bold;
   border-radius: 5px;
 
