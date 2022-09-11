@@ -1,3 +1,6 @@
+import imageDark from "../assets/imagesWeathers/clearSkyMoon.webp";
+import imageLight from "../assets/imagesWeathers/clearSkySun.webp";
+
 interface IColorProps {
   color0: "#6E64C5";
   color1: "#363537";
@@ -30,21 +33,7 @@ export const allColors: IColorProps = {
   color12: "#ECECED",
 };
 
-interface IThemesProps {
-  value: string;
-  body: string;
-  text: string;
-  content: string;
-  backgroundCard: string;
-  buttonColor: string;
-  buttonRefreshColor: string;
-  borderColor: string;
-  switchToggle: string;
-  backgroundSwitchToggle: string;
-  textSwitchToggle: string;
-}
-
-export const lightTheme: IThemesProps = {
+export const lightTheme = {
   value: "light",
   body: allColors.color0,
   text: allColors.color1,
@@ -56,8 +45,10 @@ export const lightTheme: IThemesProps = {
   switchToggle: allColors.color11,
   backgroundSwitchToggle: allColors.color5,
   textSwitchToggle: allColors.color5,
+  image: imageLight,
 };
-export const darkTheme: IThemesProps = {
+
+export const darkTheme = {
   value: "dark",
   body: allColors.color6,
   text: allColors.color5,
@@ -69,4 +60,5 @@ export const darkTheme: IThemesProps = {
   switchToggle: allColors.color5,
   backgroundSwitchToggle: allColors.color11,
   textSwitchToggle: allColors.color1,
+  image: imageDark,
 };
