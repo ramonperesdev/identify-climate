@@ -191,15 +191,17 @@ export function Home({ handleToogleTheme }: IHomeProps) {
                     Current Location
                   </ButtonCurrentLocation>
                 </Tooltip>
-                <ButtonRefresh
-                  type="button"
-                  onClick={() =>
-                    handleSetWeather(coords?.latitude, coords?.longitude)
-                  }
-                >
-                  <IconRefresh />
-                  Refresh
-                </ButtonRefresh>
+                <Tooltip textContent="Use this option to update the weather for your location">
+                  <ButtonRefresh
+                    type="button"
+                    onClick={() =>
+                      handleSetWeather(coords?.latitude, coords?.longitude)
+                    }
+                  >
+                    <IconRefresh />
+                    Refresh
+                  </ButtonRefresh>
+                </Tooltip>
               </BoxButtons>
             </BoxWeathers>
           </>

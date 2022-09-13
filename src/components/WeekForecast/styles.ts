@@ -10,8 +10,6 @@ export const Weath = styled.div`
   -webkit-box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.5);
 
-  /* background: var(--gray-500);
-  color: var(--gray-300); */
   background: ${({ theme }) => theme.backgroundCard};
   color: ${({ theme }) => theme.text};
   border-radius: 10px;
@@ -25,9 +23,7 @@ export const Weath = styled.div`
 export const DayOfWeek = styled.span`
   font-size: 0.87rem;
   font-weight: bold;
-  color: var(--white-200);
 `;
 export const WeatherName = styled.span`
   font-weight: bold;
-  color: var(--white-200);
 `;

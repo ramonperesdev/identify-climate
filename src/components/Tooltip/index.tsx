@@ -8,7 +8,7 @@ export function Tooltip({ textContent, children }: any) {
     return (
       <TooltipPrimitive.Portal>
         <StyledContent {...props}>
-          {children}
+          <div>{children}</div>
           <StyledArrow />
         </StyledContent>
       </TooltipPrimitive.Portal>

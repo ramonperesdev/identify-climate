@@ -22,12 +22,13 @@ const slideLeftAndFade = keyframes({
 });
 
 export const StyledContent = styled(Tooltip.Content)`
+  display: flex;
+  width: 180px;
   border-radius: 4px;
   padding: 10px 15px;
   font-size: 15px;
-  line-height: 1px;
-  color: var(--white-200);
-  background: var(--gray-500);
+  color: #fff;
+  background: ${({ theme }) => theme.buttonColor};
   box-shadow: "hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px";
   user-select: none;
 
@@ -52,5 +53,5 @@ export const StyledContent = styled(Tooltip.Content)`
   }
 `;
 export const StyledArrow = styled(Tooltip.Arrow)`
-  fill: var(--gray-500);
+  fill: ${({ theme }) => theme.buttonColor};
 `;
