@@ -2,7 +2,7 @@
 import api from "../api";
 
 // TYPES
-import { ICoords } from "../../interfaces/weather";
+import { ICoords } from "../../@types/types";
 
 export function getLocationWeather() {
   function apiCall({ latitude, longitude }: ICoords) {

@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { ReactComponent as Moon } from "../../assets/moon-light.svg";
-import { ReactComponent as Sun } from "../../assets/sun-light.svg";
-import { useTheme } from "../../hooks/useThemes";
+import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 
 import { SwitchContainer, SwitchHandleAni } from "./styles";
 
@@ -13,7 +11,6 @@ interface ISwitchToggleThemeProps {
 export function SwitchToggleTheme({
   handleToogleTheme,
 }: ISwitchToggleThemeProps) {
-  const { theme } = useTheme();
   const [isDark, setisDark] = useState(false);
 
   const toggleSwitch = () => {
@@ -21,14 +18,15 @@ export function SwitchToggleTheme({
     handleToogleTheme();
   };
 
-  useEffect(() => {
-    console.log("isDark", isDark);
-  }, [isDark]);
-
   return (
-    <SwitchContainer className="switch" isDark={isDark} onClick={toggleSwitch}>
+    <SwitchContainer
+      className="switch"
+      data-testid="switch-container"
+      isDark={isDark}
+      onClick={toggleSwitch}
+    >
       <SwitchHandleAni className="handle">
-        {isDark ? <Moon /> : <Sun />}
+        {isDark ? <BsFillMoonFill /> : <BsFillSunFill />}
       </SwitchHandleAni>
     </SwitchContainer>
   );

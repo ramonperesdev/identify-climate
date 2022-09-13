@@ -7,7 +7,7 @@ import { IconWeather } from "../IconWeather";
 import { Weath, WeatherName, DayOfWeek } from "./styles";
 
 // TYPES
-import { IWeatherTypes } from "../../interfaces/weather";
+import { IWeatherTypes } from "../../@types/types";
 interface IWeather {
   weath: {
     description: string;

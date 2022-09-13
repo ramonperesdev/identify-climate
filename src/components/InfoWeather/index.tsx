@@ -1,6 +1,9 @@
 // ASSETS
 import { ReactComponent as ClearSkyWhite } from "../../assets/clearDayWhite.svg";
 
+// COMPONENTS
+import { SwitchToggleTheme } from "../SwitchToggle";
+
 // STYLES
 import {
   Wrapper,
@@ -15,8 +18,8 @@ import {
 } from "./styles";
 
 // TYPES
-import { IWeather } from "../../interfaces/weather";
-import { SwitchToggleTheme } from "../SwitchToggle";
+import { IWeather } from "../../@types/types";
+import { IconWeather } from "../IconWeather";
 interface IDataWeatherProps {
   dataWeather?: IWeather;
   handleToogleTheme: () => void;
@@ -34,7 +37,7 @@ export function InfoWeather({
       </LocalDate>
 
       <BoxWeather>
-        <ClearSkyWhite />
+        <IconWeather type={dataWeather?.icon} />
         <Weather>
           <Dregrees>{`${dataWeather?.temp}°`}</Dregrees>
           <NameWeather>{dataWeather?.description.toUpperCase()}</NameWeather>

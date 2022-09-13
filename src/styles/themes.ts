@@ -1,5 +1,4 @@
-import imageDark from "../assets/imagesWeathers/clearSkyMoon.webp";
-import imageLight from "../assets/imagesWeathers/clearSkySun.webp";
+import { imageDark, imageLight } from "../assets";
 
 interface IColorProps {
   color0: "#6E64C5";

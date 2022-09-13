@@ -1,17 +1,3 @@
-export interface ICoords {
-  latitude?: number;
-  longitude?: number;
-}
-
-export interface IWeather {
-  temp: number;
-  location: string;
-  description: string;
-  main: string;
-  icon: string;
-  date: string;
-}
-
 export interface IWeatherTypes {
   "01d": string;
   "01n": string;
@@ -31,4 +17,18 @@ export interface IWeatherTypes {
   "13n": string;
   "50d": string;
   "50n": string;
+}
+
+export interface ICoords {
+  latitude?: number;
+  longitude?: number;
+}
+
+export interface IWeather {
+  temp: number;
+  location: string;
+  description: string;
+  main: string;
+  icon: keyof IWeatherTypes;
+  date: string;
 }

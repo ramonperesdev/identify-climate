@@ -7,7 +7,7 @@ import {
 } from "../../services/endpoints/weather";
 
 // TYPES
-import { ICoords, IWeather } from "../../interfaces/weather";
+import { ICoords, IWeather } from "../../@types/types";
 
 // COMPONENTS
 import { InfoWeather } from "../../components/InfoWeather";
@@ -16,8 +16,8 @@ import { Skeleton } from "../../components/Skeleton";
 import { Tooltip } from "../../components/Tooltip";
 
 // ASSETS
-import { ReactComponent as IconRefresh } from "../../assets/iconRefresh.svg";
-import { ReactComponent as IconLocation } from "../../assets/iconLocation.svg";
+import { MdMyLocation } from "react-icons/md";
+import { BiRefresh } from "react-icons/bi";
 
 // STYLES
 import {
@@ -187,7 +187,7 @@ export function Home({ handleToogleTheme }: IHomeProps) {
                     type="button"
                     onClick={handleGetLocation}
                   >
-                    <IconLocation />
+                    <MdMyLocation />
                     Current Location
                   </ButtonCurrentLocation>
                 </Tooltip>
@@ -198,7 +198,7 @@ export function Home({ handleToogleTheme }: IHomeProps) {
                       handleSetWeather(coords?.latitude, coords?.longitude)
                     }
                   >
-                    <IconRefresh />
+                    <BiRefresh />
                     Refresh
                   </ButtonRefresh>
                 </Tooltip>

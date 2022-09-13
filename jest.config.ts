@@ -1,15 +1,6 @@
-/*
- * For a detailed explanation regarding each configuration property and type check, visit:
- * https://jestjs.io/docs/configuration
- */
 export default {
-  clearMocks: true,
-  coverageProvider: "v8",
-  moduleNameMapper: {
-    "^[@./a-zA-Z0-9$_-]+\\.(jpg|svg)$": "<rootDir>/src/utils/fileMock.ts",
-  },
+  testPathIgnorePatterns: ["/node_modules/", "/.github"],
   setupFilesAfterEnv: ["<rootDir>/src/test/setupTests.ts"],
-  testEnvironment: "jsdom",
   transform: {
     "^.+\\.(t|j)sx?$": [
       "@swc/jest",
@@ -36,4 +27,10 @@ export default {
       },
     ],
   },
+  coverageProvider: "v8",
+  clearMocks: true,
+  moduleNameMapper: {
+    "^[@./a-zA-Z0-9$_-]+\\.(jpg|svg|webp)$": "<rootDir>/src/utils/fileMock.ts",
+  },
+  testEnvironment: "jsdom",
 };
