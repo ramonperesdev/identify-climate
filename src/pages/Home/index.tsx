@@ -192,7 +192,6 @@ export function Home({ handleToogleTheme }: IHomeProps) {
   }, []);
 
   useEffect(() => {
-    console.log("test");
     handleSetWeather();
     handleSetHoursForecast();
 
