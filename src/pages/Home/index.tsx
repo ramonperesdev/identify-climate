@@ -40,6 +40,8 @@ interface IHomeProps {
 }
 
 export function Home({ handleToogleTheme }: IHomeProps) {
+  console.log("test remount");
+
   const [loading, setLoading] = useState(true);
   const [loadingHoursForecast, setLoadingHoursForecast] = useState(true);
   const [coords, setCoords] = useState<ICoords | undefined>(undefined);
@@ -190,6 +192,7 @@ export function Home({ handleToogleTheme }: IHomeProps) {
   }, []);
 
   useEffect(() => {
+    console.log("test");
     handleSetWeather();
     handleSetHoursForecast();
 

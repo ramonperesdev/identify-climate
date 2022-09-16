@@ -1,9 +1,12 @@
 import { Home } from "./pages/Home";
 import { ThemeProvider } from "styled-components";
-// import "./global.css";
+
+// HOOKS
+import { useTheme } from "./hooks/useThemes";
+
+// STYLES
 import { darkTheme, lightTheme } from "./styles/themes";
 import { GlobalStyles } from "./styles/global";
-import { useTheme } from "./hooks/useThemes";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
