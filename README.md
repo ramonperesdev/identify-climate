@@ -10,6 +10,22 @@
 
 > This application provides the user with the weather and weather forecast for their location, which the user has the option to provide or not. To get this data, I used the Weather API, where I pass the latitude and longitude and it returns the current, future and historical weather.
 
+## Technologies used
+
+This project was developed with the following technologies:
+
+- [Node 16.17](https://nodejs.org/en/)
+- [React 18.2](https://reactjs.org/)
+- [TypeScript 4.6.4](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Radix-UI](https://www.radix-ui.com/)
+- [React-Icons](https://react-icons.github.io/react-icons/)
+- [Styled-Components](https://github.com/styled-components/styled-components)
+- [Axios](https://github.com/axios/axios)
+- [Jest](https://jestjs.io/)
+- [Testing-library](https://testing-library.com/docs/react-testing-library/intro/)
+- [ESLint](https://eslint.org/)
+
 ## 💻 Prerequisites
 
 Before you begin, check that you have met the following requirements:
@@ -17,7 +33,7 @@ Before you begin, check that you have met the following requirements:
 * You have a machine `<Windows / Linux / Mac>`.
 * You read `<documentation>`.
 
-## 💻 To run the project:
+## 📝 To run the project:
 
 * Clone the project by running this command in the terminal `git clone <repo_url>`;
 * First we have to:
@@ -31,10 +47,17 @@ Before you begin, check that you have met the following requirements:
   - `yarn dev` or `npm run dev` -> To run the project;
 * To run the tests just run `yarn test` or `npm run test`.
 
-## Others images
+## 🖼 Others images
 
+
+Light Theme
 <img src="./src/assets/printProject2.png" alt="Weather App">
+
 --------------------------------------------------------
-<img src="./src/assets/printProject3.png" alt="Weather App">
---------------------------------------------------------
+
 <img src="./src/assets/printProject4.png" alt="Weather App">
+
+--------------------------------------------------------
+
+Dark Theme
+<img src="./src/assets/printProject3.png" alt="Weather App">
