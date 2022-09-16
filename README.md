@@ -33,10 +33,15 @@ Before you begin, check that you have met the following requirements:
 
 ## Others images
 
+
 Light Theme
 <img src="./src/assets/printProject2.png" alt="Weather App">
+
 --------------------------------------------------------
+
 <img src="./src/assets/printProject4.png" alt="Weather App">
+
 --------------------------------------------------------
+
 Dark Theme
 <img src="./src/assets/printProject3.png" alt="Weather App">
