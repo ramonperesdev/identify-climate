@@ -139,34 +139,37 @@ export function Home({ handleToogleTheme }: IHomeProps) {
    * - Responsible for communicating with the API and bringing the
    * weather forecast based on the location provided by the user.
    */
-  const handleSetHoursForecast = useCallback(async () => {
-    getCurrentWeatherSource.current?.cancel?.("Request Canceled");
-    const { apiCall, source } = getWeatherForecast();
-    getCurrentWeatherSource.current = source;
+  const handleSetHoursForecast = useCallback(
+    async (latitude?: number, longitude?: number) => {
+      getCurrentWeatherSource.current?.cancel?.("Request Canceled");
+      const { apiCall, source } = getWeatherForecast();
+      getCurrentWeatherSource.current = source;
 
-    try {
-      setLoadingHoursForecast(true);
+      try {
+        setLoadingHoursForecast(true);
 
-      const { data } = await apiCall({
-        latitude: coords?.latitude || -16.6926655,
-        longitude: coords?.longitude || -49.2942931,
-      });
+        const { data } = await apiCall({
+          latitude: latitude || -22.9068,
+          longitude: longitude || -43.1729,
+        });
 
-      setHoursForecast(
-        data.list.map((i: any) => ({
-          temp: i.main.temp,
-          date: new Date(i.dt_txt),
-          description: i.weather[0].description,
-          icon: i.weather[0].icon,
-        }))
-      );
+        setHoursForecast(
+          data.list.map((i: any) => ({
+            temp: i.main.temp,
+            date: new Date(i.dt_txt),
+            description: i.weather[0].description,
+            icon: i.weather[0].icon,
+          }))
+        );
 
-      setLoadingHoursForecast(false);
-    } catch (error) {
-      setLoadingHoursForecast(false);
-      console.log(error);
-    }
-  }, []);
+        setLoadingHoursForecast(false);
+      } catch (error) {
+        setLoadingHoursForecast(false);
+        console.log(error);
+      }
+    },
+    []
+  );
 
   /**
    * @description
@@ -178,6 +181,7 @@ export function Home({ handleToogleTheme }: IHomeProps) {
       window.navigator.geolocation.getCurrentPosition(
         ({ coords: { latitude, longitude } }) => {
           handleSetWeather(latitude, longitude);
+          handleSetHoursForecast(latitude, longitude);
           setCoords({ latitude, longitude });
           setError(false);
         },
@@ -233,9 +237,12 @@ export function Home({ handleToogleTheme }: IHomeProps) {
                 <Tooltip textContent="Use this option to update the weather for your location">
                   <ButtonRefresh
                     type="button"
-                    onClick={() =>
-                      handleSetWeather(coords?.latitude, coords?.longitude)
-                    }
+                    onClick={() => {
+                      handleSetWeather(coords?.latitude, coords?.longitude);
+                      handleSetHoursForecast(
+                        (coords?.latitude, coords?.longitude)
+                      );
+                    }}
                   >
                     <BiRefresh />
                     Refresh
