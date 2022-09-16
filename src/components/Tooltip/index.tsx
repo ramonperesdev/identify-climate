@@ -3,8 +3,21 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 // STYLES
 import { StyledContent, StyledArrow } from "./styles";
 
-export function Tooltip({ textContent, children }: any) {
-  function Content({ children, ...props }: any) {
+interface ITooltipProps {
+  /**
+   * @description Content of the tooltip trigger, is the element that will be responsible for activating the tooltip
+   * @example <button type="button">Trigger</button>
+   */
+  children: React.ReactNode;
+
+  /**
+   * @description Content that will appear inside the tooltip
+   */
+  textContent: string;
+}
+
+export function Tooltip({ textContent, children }: ITooltipProps) {
+  function Content({ children, ...props }: { children: React.ReactNode }) {
     return (
       <TooltipPrimitive.Portal>
         <StyledContent {...props}>

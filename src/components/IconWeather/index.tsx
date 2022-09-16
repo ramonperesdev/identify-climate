@@ -18,6 +18,9 @@ import {
 // TYPES
 import { IWeatherTypes } from "../../@types/types";
 interface IIconProps {
+  /**
+   * @description Name of the icon that will be rendered according to each weather
+   */
   type?: keyof IWeatherTypes;
 }
 

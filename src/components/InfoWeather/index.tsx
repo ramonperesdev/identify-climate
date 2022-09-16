@@ -21,7 +21,14 @@ import {
 import { IWeather } from "../../@types/types";
 import { IconWeather } from "../IconWeather";
 interface IDataWeatherProps {
+  /**
+   * @description Data that will be rendered referring to the weather
+   */
   dataWeather?: IWeather;
+
+  /**
+   * @description Function responsible for changing the theme
+   */
   handleToogleTheme: () => void;
 }
 

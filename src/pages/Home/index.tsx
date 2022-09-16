@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // SERVICES
 import {
@@ -30,19 +30,37 @@ import {
   ButtonCurrentLocation,
   ButtonRefresh,
 } from "./styles";
+import { useTheme } from "../../hooks/useThemes";
+import { CancelTokenSource } from "axios";
 
 interface IHomeProps {
+  /**
+   * @description Function responsible for changing the theme
+   */
   handleToogleTheme: () => void;
 }
 
 export function Home({ handleToogleTheme }: IHomeProps) {
+  const [loading, setLoading] = useState(true);
+  const [loadingHoursForecast, setLoadingHoursForecast] = useState(true);
   const [coords, setCoords] = useState<ICoords | undefined>(undefined);
+  const [error, setError] = useState(false);
+
+  /**
+   * @description
+   * States responsible for saving all weather data provided by the API
+   */
+  const [hoursForecast, setHoursForecast] = useState([]);
   const [dataWeather, setDataWeather] = useState<IWeather | undefined>(
     undefined
   );
-  const [loading, setLoading] = useState(true);
-  const [hoursForecast, setHoursForecast] = useState([]);
-  const [error, setError] = useState(false);
+
+  /**
+   * @description
+   * Token of the current API call, with this reference it is possible to cancel the respective call that is occurring
+   */
+  const getWeatherSource = useRef<CancelTokenSource>();
+  const getCurrentWeatherSource = useRef<CancelTokenSource>();
 
   const messagesTooltip = {
     accepted:
@@ -53,6 +71,11 @@ export function Home({ handleToogleTheme }: IHomeProps) {
       "Please provide your location for us to provide you with the weather and forecast for your region.",
   };
 
+  /**
+   * @description
+   * - Responsible for defining which text should be presented
+   * in the tooltip based on the values ​​of the states.
+   */
   const handleTextTooltip = useCallback(() => {
     if (coords) {
       return messagesTooltip["accepted"];
@@ -63,9 +86,16 @@ export function Home({ handleToogleTheme }: IHomeProps) {
     }
   }, [coords, error]);
 
+  /**
+   * @description
+   * - Responsible for communicating with the API and bringing the weather
+   * of the region based on the latitude and longitude provided by the use.
+   */
   const handleSetWeather = useCallback(
     async (latitude?: number, longitude?: number) => {
-      const { apiCall } = getLocationWeather();
+      getWeatherSource.current?.cancel?.("Request Canceled");
+      const { apiCall, source } = getLocationWeather();
+      getWeatherSource.current = source;
 
       const options: Intl.DateTimeFormatOptions = {
         weekday: "long",
@@ -95,7 +125,6 @@ export function Home({ handleToogleTheme }: IHomeProps) {
           date: today,
         });
 
-        console.log("response weather", data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -105,25 +134,23 @@ export function Home({ handleToogleTheme }: IHomeProps) {
     [coords]
   );
 
+  /**
+   * @description
+   * - Responsible for communicating with the API and bringing the
+   * weather forecast based on the location provided by the user.
+   */
   const handleSetHoursForecast = useCallback(async () => {
-    const { apiCall } = getWeatherForecast();
+    getCurrentWeatherSource.current?.cancel?.("Request Canceled");
+    const { apiCall, source } = getWeatherForecast();
+    getCurrentWeatherSource.current = source;
 
     try {
+      setLoadingHoursForecast(true);
+
       const { data } = await apiCall({
         latitude: coords?.latitude || -16.6926655,
         longitude: coords?.longitude || -49.2942931,
       });
-
-      const options: Intl.DateTimeFormatOptions = {
-        weekday: "short",
-        hour: "numeric",
-        minute: "numeric",
-      };
-
-      // format date: Tuesday, September 6 at 6:28 PM
-      const today = new Date(data.dt_txt).toLocaleDateString("en-US", options);
-
-      console.log("today", today);
 
       setHoursForecast(
         data.list.map((i: any) => ({
@@ -134,18 +161,25 @@ export function Home({ handleToogleTheme }: IHomeProps) {
         }))
       );
 
-      console.log("response forecast", data);
+      setLoadingHoursForecast(false);
     } catch (error) {
+      setLoadingHoursForecast(false);
       console.log(error);
     }
   }, []);
 
+  /**
+   * @description
+   * - Responsible for requesting user authorization to obtain
+   * your latitude and longitude.
+   */
   const handleGetLocation = useCallback(() => {
     if (window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition(
         ({ coords: { latitude, longitude } }) => {
           handleSetWeather(latitude, longitude);
           setCoords({ latitude, longitude });
+          setError(false);
         },
         () => setError(true)
       );
@@ -155,12 +189,17 @@ export function Home({ handleToogleTheme }: IHomeProps) {
   useEffect(() => {
     handleSetWeather();
     handleSetHoursForecast();
+
+    return () => {
+      getWeatherSource.current?.cancel?.("Request Canceled");
+      getCurrentWeatherSource.current?.cancel?.("Request Canceled");
+    };
   }, []);
 
   return (
     <Container>
       <BoxCenter>
-        {loading && (
+        {(loading || loadingHoursForecast) && (
           <>
             <Skeleton />
           </>

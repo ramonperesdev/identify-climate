@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 // COMPONENTS
 import { IconWeather } from "../IconWeather";
@@ -10,9 +10,24 @@ import { Weath, WeatherName, DayOfWeek } from "./styles";
 import { IWeatherTypes } from "../../@types/types";
 interface IWeather {
   weath: {
+    /**
+     * @description Variable responsible for provide a description of the weather
+     */
     description: string;
+
+    /**
+     * @description Variable responsible for provide a date of the weather
+     */
     date: Date;
+
+    /**
+     * @description Variable responsible for provide a icon of the weather
+     */
     icon: keyof IWeatherTypes;
+
+    /**
+     * @description Variable responsible for provide a temperature of the weather
+     */
     temp: number;
   };
 }
@@ -22,23 +37,6 @@ export function WeekForecast({ weath }: IWeather) {
     () => ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
     []
   );
-
-  const handleDayOfWeek = useCallback(() => {
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: "short",
-      hour: "numeric",
-      minute: "numeric",
-    };
-
-    // format date: Tue 6:28 PM
-    const today = weath.date.toLocaleDateString("en-US", options);
-
-    console.log("today", today);
-  }, []);
-
-  useEffect(() => {
-    handleDayOfWeek();
-  }, []);
 
   return (
     <Weath>

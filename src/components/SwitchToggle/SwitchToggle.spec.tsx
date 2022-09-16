@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SwitchToggleTheme } from ".";
+import { darkTheme } from "../../styles/themes";
 
 jest.mock("../IconWeather");
-
-// jest.mock("react", () => ({
-//   useState: (initial: any) => [initial, jest.fn()],
-// }));
+jest.mock("../../utils/getTheme.ts", () => {
+  return () => darkTheme;
+});
 
 test("Switch Toggle renders correctly", () => {
   const { container } = render(
@@ -25,21 +25,11 @@ test("Button clicked correctly", () => {
   expect(mockFunction).toHaveBeenCalledTimes(1);
 });
 
-// test("Change page theme", () => {
-//   const [_, setState] = useState(false);
+test("Change page theme", () => {
+  render(<SwitchToggleTheme handleToogleTheme={() => {}} />);
 
-//   const { rerender } = render(
-//     <SwitchToggleTheme handleToogleTheme={() => {}} />
-//   );
-
-//   expect(screen.getByTestId("switch-container")).toHaveStyle(
-//     `background-color: '#33363B'`
-//   );
-
-//   fireEvent.click(screen.getByTestId("switch-container"));
-//   rerender(<SwitchToggleTheme handleToogleTheme={() => {}} />);
-
-//   expect(screen.getByTestId("switch-container")).toHaveStyle(
-//     `background-color: '#33363B'`
-//   );
-// });
+  expect(screen.getByTestId("switch-container")).toHaveAttribute(
+    "data-theme",
+    "dark"
+  );
+});
