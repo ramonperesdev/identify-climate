@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-
+// ASSETS
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
+
+// UTILS
 import useGetTheme from "../../utils/getTheme";
 
+// STYLES
 import { SwitchContainer, SwitchHandleAni } from "./styles";
 
 interface ISwitchToggleThemeProps {

@@ -1,6 +1,3 @@
-// ASSETS
-import { ReactComponent as ClearSkyWhite } from "../../assets/clearDayWhite.svg";
-
 // COMPONENTS
 import { SwitchToggleTheme } from "../SwitchToggle";
 

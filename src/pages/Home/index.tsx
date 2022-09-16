@@ -5,6 +5,7 @@ import {
   getLocationWeather,
   getWeatherForecast,
 } from "../../services/endpoints/weather";
+import { CancelTokenSource } from "axios";
 
 // TYPES
 import { ICoords, IWeather } from "../../@types/types";
@@ -30,8 +31,6 @@ import {
   ButtonCurrentLocation,
   ButtonRefresh,
 } from "./styles";
-import { useTheme } from "../../hooks/useThemes";
-import { CancelTokenSource } from "axios";
 
 interface IHomeProps {
   /**
