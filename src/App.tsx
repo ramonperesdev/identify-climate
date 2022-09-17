@@ -1,18 +1,18 @@
-import { Home } from "./pages/Home";
-import { ThemeProvider } from "styled-components";
+import { Home } from './pages/Home';
+import { ThemeProvider } from 'styled-components';
 
 // HOOKS
-import { useTheme } from "./hooks/useThemes";
+import { useTheme } from './hooks/useThemes';
 
 // STYLES
-import { darkTheme, lightTheme } from "./styles/themes";
-import { GlobalStyles } from "./styles/global";
+import { darkTheme, lightTheme } from './styles/themes';
+import { GlobalStyles } from './styles/global';
 
 function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyles />
       <Home handleToogleTheme={toggleTheme} />
     </ThemeProvider>

@@ -1,5 +1,5 @@
 // COMPONENTS
-import { SwitchToggleTheme } from "../SwitchToggle";
+import { SwitchToggleTheme } from '../SwitchToggle';
 
 // STYLES
 import {
@@ -12,11 +12,11 @@ import {
   Dregrees,
   NameWeather,
   BoxSwitchToggle,
-} from "./styles";
+} from './styles';
 
 // TYPES
-import { IWeather } from "../../@types/types";
-import { IconWeather } from "../IconWeather";
+import { IWeather } from '../../@types/types';
+import { IconWeather } from '../IconWeather';
 interface IDataWeatherProps {
   /**
    * @description Data that will be rendered referring to the weather

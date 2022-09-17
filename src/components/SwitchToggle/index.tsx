@@ -1,11 +1,11 @@
 // ASSETS
-import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
+import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 
 // UTILS
-import useGetTheme from "../../utils/getTheme";
+import useGetTheme from '../../utils/getTheme';
 
 // STYLES
-import { SwitchContainer, SwitchHandleAni } from "./styles";
+import { SwitchContainer, SwitchHandleAni } from './styles';
 
 interface ISwitchToggleThemeProps {
   /**
@@ -28,11 +28,11 @@ export function SwitchToggleTheme({
       className="switch"
       data-theme={theme?.value}
       data-testid="switch-container"
-      isDark={theme?.value === "dark"}
+      isDark={theme?.value === 'dark'}
       onClick={toggleSwitch}
     >
       <SwitchHandleAni className="handle">
-        {theme?.value === "dark" ? <BsFillMoonFill /> : <BsFillSunFill />}
+        {theme?.value === 'dark' ? <BsFillMoonFill /> : <BsFillSunFill />}
       </SwitchHandleAni>
     </SwitchContainer>
   );

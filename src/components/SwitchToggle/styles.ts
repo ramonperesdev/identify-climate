@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 interface ISwitchContainerProps {
   isDark: boolean;
@@ -10,7 +10,7 @@ export const SwitchContainer = styled.div<ISwitchContainerProps>`
   height: 25px;
   background-color: ${({ theme }) => theme.switchToggle};
   display: flex;
-  justify-content: ${(props) => (props?.isDark ? "flex-start" : "flex-end")};
+  justify-content: ${(props) => (props?.isDark ? 'flex-start' : 'flex-end')};
   border-radius: 50px;
   padding: 0 2px;
   align-items: center;
@@ -23,7 +23,7 @@ export const SwitchContainer = styled.div<ISwitchContainerProps>`
         font-size: 0.625rem;
         color: ${({ theme }) => theme.textSwitchToggle};
         position: absolute;
-        content: "Dark";
+        content: 'Dark';
         top: 50%;
         right: 7px;
         transform: translateY(-50%);
@@ -37,7 +37,7 @@ export const SwitchContainer = styled.div<ISwitchContainerProps>`
         font-size: 0.625rem;
         color: ${({ theme }) => theme.textSwitchToggle};
         position: absolute;
-        content: "Light";
+        content: 'Light';
         top: 50%;
         left: 7px;
         transform: translateY(-50%);

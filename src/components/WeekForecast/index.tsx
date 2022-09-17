@@ -1,13 +1,13 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 // COMPONENTS
-import { IconWeather } from "../IconWeather";
+import { IconWeather } from '../IconWeather';
 
 // STYLES
-import { Weath, WeatherName, DayOfWeek } from "./styles";
+import { Weath, WeatherName, DayOfWeek } from './styles';
 
 // TYPES
-import { IWeatherTypes } from "../../@types/types";
+import { IWeatherTypes } from '../../@types/types';
 interface IWeather {
   weath: {
     /**
@@ -34,7 +34,7 @@ interface IWeather {
 
 export function WeekForecast({ weath }: IWeather) {
   const daysOfWeek = useMemo(
-    () => ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
+    () => ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
     []
   );
 
@@ -44,9 +44,9 @@ export function WeekForecast({ weath }: IWeather) {
       <WeatherName>{weath.description.toUpperCase()}</WeatherName>
       <DayOfWeek>{`${daysOfWeek[weath.date.getDay()]}, ${String(
         weath.date.getHours()
-      ).padStart(2, "0")}:${String(weath.date.getMinutes()).padStart(
+      ).padStart(2, '0')}:${String(weath.date.getMinutes()).padStart(
         2,
-        "0"
+        '0'
       )}`}</DayOfWeek>
     </Weath>
   );

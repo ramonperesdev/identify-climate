@@ -1,24 +1,25 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { uniqueId } from 'lodash';
 
 // SERVICES
 import {
   getLocationWeather,
   getWeatherForecast,
-} from "../../services/endpoints/weather";
-import { CancelTokenSource } from "axios";
+} from '../../services/endpoints/weather';
+import { CancelTokenSource } from 'axios';
 
 // TYPES
-import { ICoords, IWeather } from "../../@types/types";
+import { ICoords, IWeather } from '../../@types/types';
 
 // COMPONENTS
-import { InfoWeather } from "../../components/InfoWeather";
-import { WeekForecast } from "../../components/WeekForecast";
-import { Skeleton } from "../../components/Skeleton";
-import { Tooltip } from "../../components/Tooltip";
+import { InfoWeather } from '../../components/InfoWeather';
+import { WeekForecast } from '../../components/WeekForecast';
+import { Skeleton } from '../../components/Skeleton';
+import { Tooltip } from '../../components/Tooltip';
 
 // ASSETS
-import { MdMyLocation } from "react-icons/md";
-import { BiRefresh } from "react-icons/bi";
+import { MdMyLocation } from 'react-icons/md';
+import { BiRefresh } from 'react-icons/bi';
 
 // STYLES
 import {
@@ -30,7 +31,7 @@ import {
   BoxButtons,
   ButtonCurrentLocation,
   ButtonRefresh,
-} from "./styles";
+} from './styles';
 
 interface IHomeProps {
   /**
@@ -40,8 +41,6 @@ interface IHomeProps {
 }
 
 export function Home({ handleToogleTheme }: IHomeProps) {
-  console.log("test remount");
-
   const [loading, setLoading] = useState(true);
   const [loadingHoursForecast, setLoadingHoursForecast] = useState(true);
   const [coords, setCoords] = useState<ICoords | undefined>(undefined);
@@ -63,29 +62,31 @@ export function Home({ handleToogleTheme }: IHomeProps) {
   const getWeatherSource = useRef<CancelTokenSource>();
   const getCurrentWeatherSource = useRef<CancelTokenSource>();
 
-  const messagesTooltip = {
-    accepted:
-      "Your location has already been authorized and the weather in your region is processed.",
-    refused:
-      "Without your location we cannot provide you with the climate of your region.",
-    unsolicited:
-      "Please provide your location for us to provide you with the weather and forecast for your region.",
-  };
+  const messagesTooltip = useMemo(
+    () => ({
+      accepted:
+        'Your location has already been authorized and the weather in your region is processed.',
+      refused:
+        'Without your location we cannot provide you with the climate of your region.',
+      unsolicited:
+        'Please provide your location for us to provide you with the weather and forecast for your region.',
+    }),
+    []
+  );
 
   /**
    * @description
-   * - Responsible for defining which text should be presented
-   * in the tooltip based on the values ​​of the states.
+   * - Responsible for defining which text should be presented in the tooltip based on the values the states.
    */
   const handleTextTooltip = useCallback(() => {
     if (coords) {
-      return messagesTooltip["accepted"];
+      return messagesTooltip.accepted;
     } else if (!error) {
-      return messagesTooltip["unsolicited"];
+      return messagesTooltip.unsolicited;
     } else {
-      return messagesTooltip["refused"];
+      return messagesTooltip.refused;
     }
-  }, [coords, error]);
+  }, [coords, error, messagesTooltip]);
 
   /**
    * @description
@@ -94,20 +95,20 @@ export function Home({ handleToogleTheme }: IHomeProps) {
    */
   const handleSetWeather = useCallback(
     async (latitude?: number, longitude?: number) => {
-      getWeatherSource.current?.cancel?.("Request Canceled");
+      getWeatherSource.current?.cancel?.('Request Canceled');
       const { apiCall, source } = getLocationWeather();
       getWeatherSource.current = source;
 
       const options: Intl.DateTimeFormatOptions = {
-        weekday: "long",
-        hour: "numeric",
-        minute: "numeric",
-        month: "long",
-        day: "numeric",
+        weekday: 'long',
+        hour: 'numeric',
+        minute: 'numeric',
+        month: 'long',
+        day: 'numeric',
       };
 
       // format date: Tuesday, September 6 at 6:28 PM
-      const today = new Date().toLocaleDateString("en-US", options);
+      const today = new Date().toLocaleDateString('en-US', options);
 
       try {
         setLoading(true);
@@ -127,12 +128,12 @@ export function Home({ handleToogleTheme }: IHomeProps) {
         });
 
         setLoading(false);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.log(err); //eslint-disable-line no-console
         setLoading(false);
       }
     },
-    [coords]
+    []
   );
 
   /**
@@ -142,7 +143,7 @@ export function Home({ handleToogleTheme }: IHomeProps) {
    */
   const handleSetHoursForecast = useCallback(
     async (latitude?: number, longitude?: number) => {
-      getCurrentWeatherSource.current?.cancel?.("Request Canceled");
+      getCurrentWeatherSource.current?.cancel?.('Request Canceled');
       const { apiCall, source } = getWeatherForecast();
       getCurrentWeatherSource.current = source;
 
@@ -164,9 +165,9 @@ export function Home({ handleToogleTheme }: IHomeProps) {
         );
 
         setLoadingHoursForecast(false);
-      } catch (error) {
+      } catch (err) {
         setLoadingHoursForecast(false);
-        console.log(error);
+        console.log(err); //eslint-disable-line no-console
       }
     },
     []
@@ -189,17 +190,17 @@ export function Home({ handleToogleTheme }: IHomeProps) {
         () => setError(true)
       );
     }
-  }, []);
+  }, [handleSetHoursForecast, handleSetWeather]);
 
   useEffect(() => {
     handleSetWeather();
     handleSetHoursForecast();
 
     return () => {
-      getWeatherSource.current?.cancel?.("Request Canceled");
-      getCurrentWeatherSource.current?.cancel?.("Request Canceled");
+      getWeatherSource.current?.cancel?.('Request Canceled');
+      getCurrentWeatherSource.current?.cancel?.('Request Canceled');
     };
-  }, []);
+  }, [handleSetWeather, handleSetHoursForecast]);
 
   return (
     <Container>
@@ -221,7 +222,7 @@ export function Home({ handleToogleTheme }: IHomeProps) {
               <Title>Hours forecast</Title>
               <Weathers>
                 {hoursForecast.map((item) => (
-                  <WeekForecast weath={item} />
+                  <WeekForecast key={uniqueId()} weath={item} />
                 ))}
               </Weathers>
 

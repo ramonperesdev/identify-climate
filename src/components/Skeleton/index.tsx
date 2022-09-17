@@ -1,5 +1,5 @@
 // STYLES
-import { BoxSkeleton } from "./styles";
+import { BoxSkeleton } from './styles';
 
 export function Skeleton() {
   return (

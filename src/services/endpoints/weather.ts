@@ -1,8 +1,8 @@
 // SERVICES
-import { api, CancelToken } from "../api";
+import { api, CancelToken } from '../api';
 
 // TYPES
-import { ICoords } from "../../@types/types";
+import { ICoords } from '../../@types/types';
 
 export function getLocationWeather() {
   const source = CancelToken.source();

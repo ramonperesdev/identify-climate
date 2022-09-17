@@ -1,7 +1,8 @@
-import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import React from 'react';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
 // STYLES
-import { StyledContent, StyledArrow } from "./styles";
+import { StyledContent, StyledArrow } from './styles';
 
 interface ITooltipProps {
   /**
@@ -17,11 +18,11 @@ interface ITooltipProps {
 }
 
 export function Tooltip({ textContent, children }: ITooltipProps) {
-  function Content({ children, ...props }: { children: React.ReactNode }) {
+  function Content({ ...props }) {
     return (
       <TooltipPrimitive.Portal>
         <StyledContent {...props}>
-          <div>{children}</div>
+          <div>{textContent}</div>
           <StyledArrow />
         </StyledContent>
       </TooltipPrimitive.Portal>
@@ -29,17 +30,17 @@ export function Tooltip({ textContent, children }: ITooltipProps) {
   }
 
   const Provider = TooltipPrimitive.Provider;
-  const Tooltip = TooltipPrimitive.Root;
+  const TooltipRoot = TooltipPrimitive.Root;
   const TooltipTrigger = TooltipPrimitive.Trigger;
   const TooltipContent = Content;
 
   return (
     <Provider>
-      <Tooltip>
+      <TooltipRoot>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
 
-        <TooltipContent>{textContent}</TooltipContent>
-      </Tooltip>
+        <TooltipContent />
+      </TooltipRoot>
     </Provider>
   );
 }

@@ -1,39 +1,39 @@
-import { imageDark, imageLight } from "../assets";
+import { imageDark, imageLight } from '../assets';
 
 interface IColorProps {
-  color0: "#6E64C5";
-  color1: "#363537";
-  color2: "#9A8FD3";
-  color3: "#FFFFFF";
-  color4: "#57489B";
-  color5: "#f3f4f6";
-  color6: "#212121";
-  color7: "#515151";
-  color8: "#666666";
-  color9: "#d3d3d3";
-  color10: "#3c3c3c";
-  color11: "#33363B";
-  color12: "#ECECED";
+  color0: '#6E64C5';
+  color1: '#363537';
+  color2: '#9A8FD3';
+  color3: '#FFFFFF';
+  color4: '#57489B';
+  color5: '#f3f4f6';
+  color6: '#212121';
+  color7: '#515151';
+  color8: '#666666';
+  color9: '#d3d3d3';
+  color10: '#3c3c3c';
+  color11: '#33363B';
+  color12: '#ECECED';
 }
 
 export const allColors: IColorProps = {
-  color0: "#6E64C5",
-  color1: "#363537",
-  color2: "#9A8FD3",
-  color3: "#FFFFFF",
-  color4: "#57489B",
-  color5: "#f3f4f6",
-  color6: "#212121",
-  color7: "#515151",
-  color8: "#666666",
-  color9: "#d3d3d3",
-  color10: "#3c3c3c",
-  color11: "#33363B",
-  color12: "#ECECED",
+  color0: '#6E64C5',
+  color1: '#363537',
+  color2: '#9A8FD3',
+  color3: '#FFFFFF',
+  color4: '#57489B',
+  color5: '#f3f4f6',
+  color6: '#212121',
+  color7: '#515151',
+  color8: '#666666',
+  color9: '#d3d3d3',
+  color10: '#3c3c3c',
+  color11: '#33363B',
+  color12: '#ECECED',
 };
 
 export const lightTheme = {
-  value: "light",
+  value: 'light',
   body: allColors.color0,
   text: allColors.color1,
   content: allColors.color2,
@@ -48,7 +48,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  value: "dark",
+  value: 'dark',
   body: allColors.color6,
   text: allColors.color5,
   content: allColors.color7,
